@@ -1,4 +1,3 @@
-version 6.0
 set incsearch
 colo desert
 set noeb vb t_vb=
@@ -7,11 +6,40 @@ set hidden
 set number
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Customizing ins-completion / omni completion
+" http://vim.wikia.com/wiki/Omni_completion 
+" http://vim.wikia.com/wiki/Omni_completion_popup_menu 
+" http://vim.wikia.com/wiki/Improve_completion_popup_menu
+imap <C-space> <C-p>
+filetype plugin on
+set ofu=syntaxcomplete#Complete
+highlight Pmenu guibg=brown gui=bold
+
+" https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
+" highlight Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+" highlight PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+" highlight PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Rempap keys for window navigation
+" http://vimcasts.org/episodes/working-with-windows/
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+ 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TODOs
+" http://sartak.org/2011/03/end-of-line-whitespace-in-vim.html
+" http://www.faqs.org/docs/Linux-HOWTO/C-editing-with-VIM-HOWTO.html
+" http://spf13.com/post/ultimate-vim-config 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " http://vim.wikia.com/wiki/Restore_screen_size_and_position 
