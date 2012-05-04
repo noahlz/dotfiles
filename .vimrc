@@ -5,6 +5,8 @@ set runtimepath+=$HOME/.vim/vim-fugitive
 set hidden
 set number
 
+set wildmenu
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Customizing ins-completion / omni completion
 " http://vim.wikia.com/wiki/Omni_completion 
@@ -16,9 +18,9 @@ set ofu=syntaxcomplete#Complete
 highlight Pmenu guibg=brown gui=bold
 
 " https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
-" highlight Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-" highlight PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-" highlight PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+" hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+" hi PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+" hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
