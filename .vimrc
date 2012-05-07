@@ -1,7 +1,15 @@
 set incsearch
-colo desert
 set noeb vb t_vb=
 set runtimepath+=$HOME/.vim/vim-fugitive
+
+colo desert
+" Further customization of colors is done with the AfterColors Plugin
+" https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
+" hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+" hi PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+" hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+" hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
 set hidden
 set number
 
@@ -15,12 +23,6 @@ set wildmenu
 imap <C-space> <C-p>
 filetype plugin on
 set ofu=syntaxcomplete#Complete
-highlight Pmenu guibg=brown gui=bold
-
-" https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
-" hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-" hi PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-" hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
