@@ -13,6 +13,15 @@ colo desert
 set hidden
 set number
 
+" http://vim.wikia.com/wiki/Word_wrap_without_line_breaks 
+set wrap
+set linebreak
+set nolist  " list disables linebreak
+set textwidth=0
+set wrapmargin=0
+set formatoptions+=l
+
+" Popup suggestions for the command buffer.
 set wildmenu
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -38,6 +47,11 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Saved macros - http://stackoverflow.com/questions/2024443/saving-vim-macros
+let @c='bgUelguew' " Capitalize first leter and jump to next word.
+let @v='"+gp'      " or maybe one day map Ctrl-Shift-P if possible?
  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TODOs
