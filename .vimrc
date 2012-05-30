@@ -21,6 +21,15 @@ set textwidth=0
 set wrapmargin=0
 set formatoptions+=l
 
+" Enable autoindent, cindent
+" http://blogs.gnome.org/johannes/2006/11/10/getting-cool-auto-indent-in-vim/
+set cindent
+set smartindent
+set autoindent
+
+" key binding for make
+nmap <C-K> :make <CR>
+
 " Popup suggestions for the command buffer.
 set wildmenu
 
