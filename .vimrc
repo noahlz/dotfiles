@@ -27,9 +27,6 @@ set cindent
 set smartindent
 set autoindent
 
-" key binding for make
-nmap <C-K> :make <CR>
-
 " Popup suggestions for the command buffer.
 set wildmenu
 
