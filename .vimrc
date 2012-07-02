@@ -1,39 +1,9 @@
 " Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
 call pathogen#runtime_append_all_bundles()
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VimClojure configuration
-" Following instructions from:
-" https://github.com/vim-scripts/VimClojure/blob/master/README.markdown
-" and 
-" http://blog.darevay.com/2010/10/how-i-tamed-vimclojure/
-syntax on
-
 " This is standard pathogen and vim setup
 set nocompatible
 call pathogen#infect() 
-
-" Here's the vimclojure stuff. You'll need to adjust the NailgunClient
-" setting if you're on windows or have other problems.
-let vimclojureRoot = $HOME ."/.vim/bundle/vimclojure"
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = vimclojureRoot."/lib/nailgun/ng"
-
-let sep = ":"
-let classpath = ".:src:src/main/clojure:src/main/resources:test:src/test/clojure:src/test/resources:classes:target/classes:lib/*:lib/dev/*:bin:".$HOME."/.vim/lib/*" 
-
-" Start vimclojure nailgun server (uses screen.vim to manage lifetime)
-nmap <silent> <Leader>sc :execute "ScreenShell java -cp \"" . classpath . sep . vimclojureRoot . "/lib/*" . "\" vimclojure.nailgun.NGServer 127.0.0.1" <cr>
-" Start a generic Clojure repl (uses screen.vim)
-nmap <silent> <Leader>sC :execute "ScreenShell java -cp \"" . classpath . "\" clojure.main" <cr>
-
-" END VimClojure Config
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Color Scheme
 colo desert
@@ -74,6 +44,7 @@ set wildmenu
 " http://vim.wikia.com/wiki/Improve_completion_popup_menu
 imap <C-space> <C-p>
 filetype plugin indent on
+syntax on
 set ofu=syntaxcomplete#Complete
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
@@ -192,7 +163,6 @@ set guifont=Inconsolata\ 13
 set helplang=en
 set history=50
 set hlsearch
-set incsearch
 set mouse=a
 set ruler
 set shiftwidth=4
