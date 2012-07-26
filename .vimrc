@@ -5,6 +5,26 @@ call pathogen#runtime_append_all_bundles()
 set nocompatible
 call pathogen#infect() 
 
+filetype plugin indent on
+syntax on
+
+" START VIMCLOJURE
+let vimclojure#FuzzyIndent=1
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=1
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = $HOME ."/.vim/nailgun/vimclojure-nailgun-client/ng"
+
+" Paredit
+let g:paredit_mode = 0
+
+:helptags ~/.vim/bundle/vim-clojure/doc
+" END VIMCLOJURE
+
+:helptags ~/.vim/bundle/vim-fugitive/doc
+
 " Color Scheme
 colo desert
 " Further customization of colors is done with the AfterColors Plugin
@@ -43,8 +63,6 @@ set wildmenu
 " http://vim.wikia.com/wiki/Omni_completion_popup_menu 
 " http://vim.wikia.com/wiki/Improve_completion_popup_menu
 imap <C-space> <C-p>
-filetype plugin indent on
-syntax on
 set ofu=syntaxcomplete#Complete
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
