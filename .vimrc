@@ -7,6 +7,16 @@ call pathogen#infect()
 
 filetype plugin indent on
 syntax on
+" http://vimcasts.org/episodes/tabs-and-spaces/
+set shiftwidth=4 
+set tabstop=4 
+set softtabstop=4
+set noexpandtab
+" http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
+autocmd FileType           html,xml,clj   setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufRead,BufNewFile *.md           setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType           c,h,java       setlocal expandtab
+autocmd FileType           make,txt       setlocal noexpandtab
 
 " START VIMCLOJURE
 let vimclojure#FuzzyIndent=1
@@ -183,8 +193,6 @@ set history=50
 set hlsearch
 set mouse=a
 set ruler
-set shiftwidth=4
-set tabstop=4
 set termencoding=utf-8
 set viminfo='20,\"50
 set window=27
