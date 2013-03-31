@@ -18,25 +18,19 @@ autocmd BufRead,BufNewFile *.md           setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType           c,h,java       setlocal expandtab
 autocmd FileType           make,txt       setlocal noexpandtab
 
-" START VIMCLOJURE
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = $HOME ."/.vim/nailgun/vimclojure-nailgun-client/ng"
-
 " Paredit
 let g:paredit_mode = 0
 
-:helptags ~/.vim/bundle/vim-clojure/doc
-" END VIMCLOJURE
-
+:helptags ~/.vim/bundle/vim-fireplace/doc
+:helptags ~/.vim/bundle/vim-classpath/doc
+:helptags ~/.vim/bundle/conque_2.2/doc
+:helptags ~/.vim/bundle/vim-pipe/doc
 :helptags ~/.vim/bundle/vim-fugitive/doc
 
 " Color Scheme
 colo desert
+hi Pmenu guibg=brown gui=bold
+
 " Further customization of colors is done with the AfterColors Plugin
 " https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
 " hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
