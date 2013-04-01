@@ -1,10 +1,40 @@
-" http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen/
+" This is standard pathogen and vim setup
 set nocompatible
+
+" http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen/
+" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
 call pathogen#infect() 
 call pathogen#helptags()
 
+filetype plugin indent on
+syntax on
+
+" http://vimcasts.org/episodes/tabs-and-spaces/
+set shiftwidth=4 
+set tabstop=4 
+set softtabstop=4
+set noexpandtab
+
+" http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
+autocmd FileType           html,xml,clj   setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufRead,BufNewFile *.md           setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType           c,h,java       setlocal expandtab
+autocmd FileType           make,txt       setlocal noexpandtab
+
+" Paredit
+let g:paredit_mode = 0
+
+fun! LeinCMD()
+    execute 'ConqueTerm lein repl'
+    execute 'set syntax=clojure'
+    execute 'normal! i'
+endf
+command! Repl call LeinCMD()
+
 " Color Scheme
 colo desert
+hi Pmenu guibg=brown gui=bold
+
 " Further customization of colors is done with the AfterColors Plugin
 " https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
 " hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
@@ -41,8 +71,6 @@ set wildmenu
 " http://vim.wikia.com/wiki/Omni_completion_popup_menu 
 " http://vim.wikia.com/wiki/Improve_completion_popup_menu
 imap <C-space> <C-p>
-filetype plugin indent on
-syntax on
 set ofu=syntaxcomplete#Complete
 
 inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
@@ -163,8 +191,6 @@ set history=50
 set hlsearch
 set mouse=a
 set ruler
-set shiftwidth=4
-set tabstop=4
 set termencoding=utf-8
 set viminfo='20,\"50
 set window=27
