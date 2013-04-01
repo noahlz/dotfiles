@@ -1,5 +1,6 @@
 " Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 " This is standard pathogen and vim setup
 set nocompatible
@@ -20,12 +21,6 @@ autocmd FileType           make,txt       setlocal noexpandtab
 
 " Paredit
 let g:paredit_mode = 0
-
-:helptags ~/.vim/bundle/vim-fireplace/doc
-:helptags ~/.vim/bundle/vim-classpath/doc
-:helptags ~/.vim/bundle/conque_2.2/doc
-:helptags ~/.vim/bundle/vim-pipe/doc
-:helptags ~/.vim/bundle/vim-fugitive/doc
 
 fun! LeinCMD()
     execute 'ConqueTerm lein repl'
