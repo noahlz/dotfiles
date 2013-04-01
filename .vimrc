@@ -27,6 +27,13 @@ let g:paredit_mode = 0
 :helptags ~/.vim/bundle/vim-pipe/doc
 :helptags ~/.vim/bundle/vim-fugitive/doc
 
+fun! LeinCMD()
+    execute 'ConqueTerm lein repl'
+    execute 'set syntax=clojure'
+    execute 'normal! i'
+endf
+command! Repl call LeinCMD()
+
 " Color Scheme
 colo desert
 hi Pmenu guibg=brown gui=bold
