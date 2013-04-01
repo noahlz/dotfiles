@@ -1,9 +1,7 @@
-" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
-call pathogen#runtime_append_all_bundles()
-
-" This is standard pathogen and vim setup
+" http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen/
 set nocompatible
 call pathogen#infect() 
+call pathogen#helptags()
 
 " Color Scheme
 colo desert
