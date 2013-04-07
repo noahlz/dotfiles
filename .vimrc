@@ -14,21 +14,47 @@ set tabstop=4
 set softtabstop=4
 set noexpandtab
 " http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
-autocmd FileType           html,xml,clj   setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd BufRead,BufNewFile *.md           setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType           c,h,java       setlocal expandtab
-autocmd FileType           make,txt       setlocal noexpandtab
+autocmd FileType           html,xml,clj,ruby   setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufRead,BufNewFile *.md                setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType           c,h,java            setlocal expandtab
+autocmd FileType           make,txt            setlocal noexpandtab
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clojure Stuff
 
 " Paredit
 let g:paredit_mode = 0
 
+let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
+autocmd FileType	clj		let b:vimpipe_command="drip -cp ".s:CLOJURE_JAR." /tmp/temp.clj"
+autocmd FileType	clj		let b:vimpipe_filetype="clojure"
+
 fun! LeinCMD()
-    execute 'ConqueTerm lein repl'
+    execute 'ConqueTermSplit lein repl'
     execute 'set syntax=clojure'
     execute 'normal! i'
 endf
 command! Repl call LeinCMD()
 
+fun! CljCMD()
+	execute 'w! /tmp/temp.clj'
+	execute 'set syntax=clojure'
+	execute 'ConqueTermSplit drip -cp '.s:CLOJURE_JAR.' clojure.main /tmp/temp.clj'
+endf
+command! Clj call CljCMD()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ruby
+autocmd FileType	ruby	setlocal makeprg=ruby\ %
+autocmd FileType	ruby	let b:vimpipe_command="ruby"
+
+fun! IrbCMD()
+	execute 'ConqueTermSplit irb'
+	execute 'set syntax=ruby'
+endf
+command! Irb call IrbCMD()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color Scheme
 colo desert
 hi Pmenu guibg=brown gui=bold
