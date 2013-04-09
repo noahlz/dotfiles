@@ -20,6 +20,8 @@ autocmd FileType           html,xml,clj   setlocal expandtab shiftwidth=2 tabsto
 autocmd BufRead,BufNewFile *.md           setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType           c,h,java       setlocal expandtab
 autocmd FileType           make,txt       setlocal noexpandtab
+" turn off autocomment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Paredit
 let g:paredit_mode = 0
