@@ -19,6 +19,9 @@ autocmd BufRead,BufNewFile *.md                setlocal expandtab sw=2 ts=2 sts=
 autocmd FileType           c,h,java            setlocal expandtab
 autocmd FileType           make,txt            setlocal noexpandtab
 
+" turn off autocomment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clojure Stuff
 
