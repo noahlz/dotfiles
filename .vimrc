@@ -25,12 +25,10 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clojure Stuff
 
+let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
+
 " Paredit
 let g:paredit_mode = 0
-
-let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
-autocmd FileType	clj		let b:vimpipe_command="drip -cp ".s:CLOJURE_JAR." /tmp/temp.clj"
-autocmd FileType	clj		let b:vimpipe_filetype="clojure"
 
 fun! LeinCMD()
     execute 'ConqueTermSplit lein repl'
