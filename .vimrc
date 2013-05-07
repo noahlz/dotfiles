@@ -22,6 +22,14 @@ autocmd FileType           make,txt            setlocal noexpandtab
 " turn off autocomment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" quickly navigate buffers
+nnoremap gb :ls<CR>:b<Space>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Drip
+
+let g:JAVA_CMD = "drip"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clojure Stuff
 
@@ -29,13 +37,6 @@ let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
 
 " Paredit
 let g:paredit_mode = 0
-
-fun! LeinCMD()
-    execute 'ConqueTermSplit lein repl'
-    execute 'set syntax=clojure'
-    execute 'normal! i'
-endf
-command! Repl call LeinCMD()
 
 fun! CljCMD()
 	execute 'w! /tmp/temp.clj'
