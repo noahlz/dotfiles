@@ -40,6 +40,12 @@ fun! CljCMD()
 endf
 command! Clj call CljCMD()
 
+"Kill ^M chars
+fun! KMCMD() 
+	execute '%s/\r$//g'
+endf
+command! Km call KMCMD()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby
 autocmd FileType	ruby	setlocal makeprg=ruby\ %
@@ -196,5 +202,4 @@ if has("gui_running")
     set guifont=Consolas:h14:cANSI
   endif
 endif
-
 
