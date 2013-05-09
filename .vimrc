@@ -1,38 +1,57 @@
+" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
+call pathogen#incubate()
+call pathogen#helptags()
+
 " This is standard pathogen and vim setup
 set nocompatible
-
-" http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen/
-" Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
 call pathogen#infect() 
-call pathogen#helptags()
 
 filetype plugin indent on
 syntax on
-
 " http://vimcasts.org/episodes/tabs-and-spaces/
 set shiftwidth=4 
 set tabstop=4 
 set softtabstop=4
 set noexpandtab
-
 " http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
-autocmd FileType           html,xml,clj   setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd BufRead,BufNewFile *.md           setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType           c,h,java       setlocal expandtab
-autocmd FileType           make,txt       setlocal noexpandtab
+autocmd FileType           html,xml,clj,ruby   setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufRead,BufNewFile *.md                setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType           c,h,java            setlocal expandtab
+autocmd FileType           make,txt            setlocal noexpandtab
+
 " turn off autocomment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" quickly navigate buffers
+nnoremap gb :ls<CR>:b<Space>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clojure Stuff
+
+let s:CLOJURE_JAR = "C:\Users\noahz\.m2\repository\org\clojure\clojure\1.5.1\clojure-1.5.1.jar"
+let s:TEMP_CLJ = "C:\Users\noahz\temp.clj"
 " Paredit
 let g:paredit_mode = 0
 
-fun! LeinCMD()
-    execute 'ConqueTerm lein repl'
-    execute 'set syntax=clojure'
-    execute 'normal! i'
+fun! CljCMD()
+	execute 'w! '
+	execute 'set syntax=clojure'
+	execute 'ConqueTermSplit java -cp '.s:CLOJURE_JAR.' clojure.main /tmp/temp.clj'
 endf
-command! Repl call LeinCMD()
+command! Clj call CljCMD()
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ruby
+autocmd FileType	ruby	setlocal makeprg=ruby\ %
+autocmd FileType	ruby	let b:vimpipe_command="ruby"
+
+fun! IrbCMD()
+	execute 'ConqueTermSplit irb'
+	execute 'set syntax=ruby'
+endf
+command! Irb call IrbCMD()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color Scheme
 colo desert
 hi Pmenu guibg=brown gui=bold
@@ -170,31 +189,12 @@ let g:screen_size_restore_pos = 1
 " For all Vim to use the same settings, change this to 0.
 let g:screen_size_by_vim_instance = 1
 
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 13
+  elseif has("gui_win32")
+    set guifont=Consolas:h14:cANSI
+  endif
+endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Generated settings which I will sift through later
-
-if &cp | set nocp | endif
-let s:cpo_save=&cpo
-set cpo&vim
-nmap gx <Plug>NetrwBrowseX
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-let &cpo=s:cpo_save
-unlet s:cpo_save
-set background=dark
-set backspace=indent,eol,start
-set cscopeprg=/usr/bin/cscope
-set cscopetag
-set cscopeverbose
-set fileencodings=utf-8,latin1
-set guifont=Inconsolata\ 13
-set helplang=en
-set history=50
-set hlsearch
-set mouse=a
-set ruler
-set termencoding=utf-8
-set viminfo='20,\"50
-set window=27
-" vim: set ft=vim :
 
