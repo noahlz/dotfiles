@@ -36,7 +36,7 @@ let g:JAVA_CMD = "drip"
 let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
 
 " Paredit
-let g:paredit_mode = 0
+" let g:paredit_mode = 0
 
 fun! CljCMD()
 	execute 'w! /tmp/temp.clj'
