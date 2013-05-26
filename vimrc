@@ -37,11 +37,14 @@ let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
 
 " Paredit
 " let g:paredit_mode = 0
+let g:paredit_leader = '\'
+let g:paredit_shortmaps = 1
 
 fun! CljCMD()
 	execute 'w! /tmp/temp.clj'
 	execute 'set syntax=clojure'
-	execute 'ConqueTermSplit drip -cp '.s:CLOJURE_JAR.' clojure.main /tmp/temp.clj'
+	execute 'set makeprg=lein'
+	execute 'Make oneoff /tmp/temp.clj'
 endf
 command! Clj call CljCMD()
 
