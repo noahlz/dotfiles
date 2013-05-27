@@ -37,8 +37,8 @@ let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
 
 " Paredit
 " let g:paredit_mode = 0
-let g:paredit_leader = '\'
-let g:paredit_shortmaps = 1
+" let g:paredit_shortmaps = 1
+" let g:paredit_leader = '\'
 
 fun! CljCMD()
 	execute 'w! /tmp/temp.clj'
