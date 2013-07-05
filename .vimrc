@@ -24,7 +24,7 @@ autocmd FileType           make,txt       setlocal noexpandtab
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Paredit
-let g:paredit_mode = 0
+"let g:paredit_mode = 0
 
 fun! LeinCMD()
     execute 'ConqueTerm lein repl'
