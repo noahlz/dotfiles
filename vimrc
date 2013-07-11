@@ -6,6 +6,14 @@ call pathogen#helptags()
 set nocompatible
 call pathogen#infect() 
 
+" Start NERDTree but put focus on main window
+autocmd VimEnter * NERDTree | wincmd p
+" :NT opens NerdTree 
+function OpenNERDTree()
+  execute ":NERDTree"
+endfunction
+command! NT call OpenNERDTree()
+
 filetype plugin indent on
 syntax on
 " http://vimcasts.org/episodes/tabs-and-spaces/
