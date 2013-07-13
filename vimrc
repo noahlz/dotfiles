@@ -9,9 +9,9 @@ call pathogen#infect()
 " Start NERDTree but put focus on main window
 autocmd VimEnter * NERDTree | wincmd p
 " :NT opens NerdTree 
-function OpenNERDTree()
+fun! OpenNERDTree()
   execute ":NERDTree"
-endfunction
+endf
 command! NT call OpenNERDTree()
 
 filetype plugin indent on
@@ -32,6 +32,13 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " quickly navigate buffers
 nnoremap gb :ls<CR>:b<Space>
+
+" tmux copy/paste integration
+if $TMUX == ''
+  set clipboard^=unnamed
+endif
+" tmux copies into the * buffer
+inoremap <C-P> <ESC>"*P<ESC>i
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Drip
