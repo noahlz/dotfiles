@@ -22,10 +22,10 @@ set tabstop=4
 set softtabstop=4
 set noexpandtab
 " http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
-autocmd FileType           html,xml,clj,ruby   setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd BufRead,BufNewFile *.md                setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType           c,h,java            setlocal expandtab
-autocmd FileType           make,txt            setlocal noexpandtab
+autocmd FileType           html,xml,clj,ruby,scala,sc  setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufRead,BufNewFile *.md                        setlocal expandtab sw=2 ts=2 sts=2
+autocmd FileType           c,h,java,scala,sc           setlocal expandtab
+autocmd FileType           make,txt                    setlocal noexpandtab
 
 " turn off autocomment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -62,6 +62,7 @@ fun! CljCMD()
 	execute 'Make oneoff /tmp/temp.clj'
 endf
 command! Clj call CljCMD()
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby
