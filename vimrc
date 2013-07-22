@@ -77,9 +77,23 @@ command! Irb call IrbCMD()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color Scheme
-colo desert
 hi Pmenu guibg=brown gui=bold
+set t_Co=256
 
+if has("gui_running") 
+  inoremap <C-Space> <C-n>
+  colo jellybeans
+else
+  inoremap <Nul> <C-n>
+  colo codeschool
+  " cursor to bar in vim terminal
+  if has("autocmd")
+    au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+    au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+    au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block" 
+  endif
+endif
+ 
 " Further customization of colors is done with the AfterColors Plugin
 " https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
 " hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
@@ -144,6 +158,7 @@ let @v='"+gp'      " or maybe one day map Ctrl-Shift-P if possible?
 " http://www.faqs.org/docs/Linux-HOWTO/C-editing-with-VIM-HOWTO.html
 " http://spf13.com/post/ultimate-vim-config 
 
+     
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " http://vim.wikia.com/wiki/Restore_screen_size_and_position 
 
