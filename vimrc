@@ -82,7 +82,7 @@ set t_Co=256
 
 if has("gui_running") 
   inoremap <C-Space> <C-n>
-  colo jellybeans
+  colo desert256
 else
   inoremap <Nul> <C-n>
   colo codeschool
