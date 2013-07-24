@@ -6,106 +6,80 @@ call pathogen#helptags()
 set nocompatible
 call pathogen#infect() 
 
-" Start NERDTree but put focus on main window
-autocmd VimEnter * NERDTree | wincmd p
-" :NT opens NerdTree 
-fun! OpenNERDTree()
-  execute ":NERDTree"
-endf
-command! NT call OpenNERDTree()
+set t_Co=256
+colo distinguished
 
-filetype plugin indent on
-syntax on
+" Step #1: No beeping or flashing!
+set noeb vb t_vb=
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Saved macros - http://stackoverflow.com/questions/2024443/saving-vim-macros
+let @c='bgUelguew' " Capitalize first leter and jump to next word.
+let @v='"+gp'      " or maybe one day map Ctrl-Shift-P if possible?
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Other GUI-vs-console-specific customizations
+
+if has("gui_running") 
+  inoremap <C-Space> <C-P>
+else
+  inoremap <Nul> <C-P>
+   
+  " also, make the cursor to bar when in insert mode  
+  if has("autocmd")
+    au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+    au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+    au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block" 
+  endif 
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Tabs and Spaces 
 " http://vimcasts.org/episodes/tabs-and-spaces/
 set shiftwidth=4 
 set tabstop=4 
 set softtabstop=4
 set noexpandtab
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FileTypes and language-specific features 
+filetype plugin indent on
+syntax on
+
 " http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
-autocmd FileType           html,xml,clj,ruby,scala,sc  setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd BufRead,BufNewFile *.md                        setlocal expandtab sw=2 ts=2 sts=2
-autocmd FileType           c,h,java,scala,sc           setlocal expandtab
-autocmd FileType           make,txt                    setlocal noexpandtab
+autocmd FileType           html,xml,clj,ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType           scala,sc          setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType           c,h,java          setlocal expandtab
+autocmd FileType           make,txt          setlocal noexpandtab
+autocmd BufRead,BufNewFile *.md              setlocal expandtab sw=2 ts=2 sts=2
 
 " turn off autocomment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" quickly navigate buffers
-nnoremap gb :ls<CR>:b<Space>
-
-" tmux copy/paste integration
-if $TMUX == ''
-  set clipboard^=unnamed
-endif
-" tmux copies into the * buffer
-inoremap <C-P> <ESC>"*P<ESC>i
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Drip
-
-let g:JAVA_CMD = "drip"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clojure Stuff
-
-let s:CLOJURE_JAR = $HOME."/java/clojure-1.5.1/clojure-1.5.1.jar"
-
-" Paredit
-" let g:paredit_mode = 0
-" let g:paredit_shortmaps = 1
-" let g:paredit_leader = '\'
-
-fun! CljCMD()
-	execute 'w! /tmp/temp.clj'
-	execute 'set syntax=clojure'
-	execute 'set makeprg=lein'
-	execute 'Make oneoff /tmp/temp.clj'
-endf
-command! Clj call CljCMD()
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby
 autocmd FileType	ruby	setlocal makeprg=ruby\ %
 autocmd FileType	ruby	let b:vimpipe_command="ruby"
 
-fun! IrbCMD()
-	execute 'ConqueTermSplit irb'
-	execute 'set syntax=ruby'
-endf
-command! Irb call IrbCMD()
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Various standard vim settings 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Color Scheme
-hi Pmenu guibg=brown gui=bold
-set t_Co=256
-
-if has("gui_running") 
-  inoremap <C-Space> <C-n>
-  colo desert256
-else
-  inoremap <Nul> <C-n>
-  colo codeschool
-  " cursor to bar in vim terminal
-  if has("autocmd")
-    au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
-    au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-    au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block" 
-  endif
-endif
- 
-" Further customization of colors is done with the AfterColors Plugin
-" https://github.com/spf13/spf13-vim/blob/3.0/.vimrc 
-" hi Pmenu guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-" hi PmenuSbar guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-" hi PmenuThumb guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-" hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-
-set incsearch
-set noeb vb t_vb=
+" Make the mouse work
+set mouse=a
 
 set hidden
 set number
+set incsearch
+set hlsearch
+
+" Popup suggestions for the command buffer.
+set wildmenu
+
+" Enable autoindent, cindent
+" http://blogs.gnome.org/johannes/2006/11/10/getting-cool-auto-indent-in-vim/
+set cindent
+set smartindent
+set autoindent
 
 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks 
 set wrap
@@ -115,31 +89,8 @@ set textwidth=0
 set wrapmargin=0
 set formatoptions+=l
 
-" Enable autoindent, cindent
-" http://blogs.gnome.org/johannes/2006/11/10/getting-cool-auto-indent-in-vim/
-set cindent
-set smartindent
-set autoindent
-
-" Popup suggestions for the command buffer.
-set wildmenu
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Customizing ins-completion / omni completion
-" http://vim.wikia.com/wiki/Omni_completion 
-" http://vim.wikia.com/wiki/Omni_completion_popup_menu 
-" http://vim.wikia.com/wiki/Improve_completion_popup_menu
-imap <C-space> <C-p>
-set ofu=syntaxcomplete#Complete
-
-inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quick Navigation
 " Rempap keys for window navigation
 " http://vimcasts.org/episodes/working-with-windows/
 map <C-h> <C-w>h
@@ -147,112 +98,49 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Saved macros - http://stackoverflow.com/questions/2024443/saving-vim-macros
-let @c='bgUelguew' " Capitalize first leter and jump to next word.
-let @v='"+gp'      " or maybe one day map Ctrl-Shift-P if possible?
- 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TODOs
-" http://sartak.org/2011/03/end-of-line-whitespace-in-vim.html
-" http://www.faqs.org/docs/Linux-HOWTO/C-editing-with-VIM-HOWTO.html
-" http://spf13.com/post/ultimate-vim-config 
+" quickly navigate buffers #protip
+nnoremap gb :ls<CR>:b<Space>
 
-     
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" http://vim.wikia.com/wiki/Restore_screen_size_and_position 
-
-if has("gui_running")
-  function! ScreenFilename()
-    if has('amiga')
-      return "s:.vimsize"
-    elseif has('win32')
-      return $HOME.'\_vimsize'
-    else
-      return $HOME.'/.vimsize'
-    endif
-  endfunction
-
-  function! ScreenRestore()
-    " Restore window size (columns and lines) and position
-    " from values stored in vimsize file.
-    " Must set font first so columns and lines are based on font size.
-    let f = ScreenFilename()
-    if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
-      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-      for line in readfile(f)
-        let sizepos = split(line)
-        if len(sizepos) == 5 && sizepos[0] == vim_instance
-          silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
-          silent! execute "winpos ".sizepos[3]." ".sizepos[4]
-          return
-        endif
-      endfor
-    endif
-  endfunction
-
-  function! ScreenSave()
-    " Save window size and position.
-    if has("gui_running") && g:screen_size_restore_pos
-      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-      let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
-            \ (getwinposx()<0?0:getwinposx()) . ' ' .
-            \ (getwinposy()<0?0:getwinposy())
-      let f = ScreenFilename()
-      if filereadable(f)
-        let lines = readfile(f)
-        call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
-        call add(lines, data)
-      else
-        let lines = [data]
-      endif
-      call writefile(lines, f)
-    endif
-  endfunction
-
-  if !exists('g:screen_size_restore_pos')
-    let g:screen_size_restore_pos = 1
-  endif
-  if !exists('g:screen_size_by_vim_instance')
-    let g:screen_size_by_vim_instance = 1
-  endif
-  autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-  autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TMUX
+" tmux copy/paste integration (I think)
+if $TMUX == ''
+  set clipboard^=unnamed
 endif
+" tmux copies into the * buffer
+inoremap <C-V> <ESC>"*P<ESC>i
 
-" To enable the saving and restoring of screen positions.
-let g:screen_size_restore_pos = 1
-
-" To save and restore screen for each Vim instance.
-" This is useful if you routinely run more than one Vim instance.
-" For all Vim to use the same settings, change this to 0.
-let g:screen_size_by_vim_instance = 1
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree 
+" Start NERDTree but put focus on main window
+autocmd VimEnter * NERDTree | wincmd p
+autocmd VimEnter * vertical resize +10
+" :NT opens NerdTree 
+fun! OpenNERDTree()
+  execute ":NERDTree"
+endf
+command! NT call OpenNERDTree()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Generated settings which I will sift through later
+" Auto completion!
 
-if &cp | set nocp | endif
-let s:cpo_save=&cpo
-set cpo&vim
-nmap gx <Plug>NetrwBrowseX
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-let &cpo=s:cpo_save
-unlet s:cpo_save
-set background=dark
-set backspace=indent,eol,start
-set cscopeprg=/usr/bin/cscope
-set cscopetag
-set cscopeverbose
-set fileencodings=utf-8,latin1
-set guifont=Inconsolata\ 13
-set helplang=en
-set history=50
-set hlsearch
-set mouse=a
-set ruler
-set termencoding=utf-8
-set viminfo='20,\"50
-set window=27
-" vim: set ft=vim :
+" http://vim.wikia.com/wiki/VimTip1386
+" "Make vim popup work just like in an IDE"
+set completeopt+=longest,menuone
+
+" Customizing ins-completion / omni completion
+" http://vim.wikia.com/wiki/Omni_completion 
+" http://vim.wikia.com/wiki/Omni_completion_popup_menu 
+" http://vim.wikia.com/wiki/Improve_completion_popup_menu
+set omnifunc=syntaxcomplete#Complete
+
+inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+
+" For some reason the below don't work in console vim...
+" Just use C-N and C-P!!!
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
