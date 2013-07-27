@@ -110,6 +110,21 @@ endif
 " tmux copies into the * buffer
 inoremap <C-V> <ESC>"*P<ESC>i
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vimux 
+" Prompt for a command to run map
+map <Leader>vp :VimuxPromptCommand<CR>
+
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
+  
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <LocalLeader>vs "vy :call VimuxSlime()<CR>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree 
 " Start NERDTree but put focus on main window
