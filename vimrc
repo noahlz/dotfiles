@@ -12,6 +12,12 @@ colo distinguished
 " Step #1: No beeping or flashing!
 set noeb vb t_vb=
 
+" Step #2: change local leader
+let maplocalleader = ","
+
+" Step #3: Disable annoying help
+imap <F1> <Esc> 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Saved macros - http://stackoverflow.com/questions/2024443/saving-vim-macros
 let @c='bgUelguew' " Capitalize first leter and jump to next word.
@@ -24,7 +30,7 @@ if has("gui_running")
   inoremap <C-Space> <C-P>
 else
   inoremap <Nul> <C-P>
-   
+ 
   " also, make the cursor to bar when in insert mode  
   if has("autocmd")
     au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
@@ -60,6 +66,13 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Ruby
 autocmd FileType	ruby	setlocal makeprg=ruby\ %
 autocmd FileType	ruby	let b:vimpipe_command="ruby"
+map <LocalLeader>r :call VimuxRunCommand("clear; ruby " . bufname("%"))<CR>
+map <LocalLeader>i :call VimuxRunCommand("irb")<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Scala
+map <LocalLeader>sc :call VimuxRunCommand("clear; sbt console")<CR>
+map <LocalLeader>sb :call VimuxRunCommand("sbt ~test:compile")<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Various standard vim settings 
@@ -112,9 +125,18 @@ inoremap <C-V> <ESC>"*P<ESC>i
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vimux 
+" Vimux 
 " Prompt for a command to run map
-map <Leader>vp :VimuxPromptCommand<CR>
+map <LocalLeader>vp :VimuxPromptCommand<CR>
+
+" Inspect runner pane
+map <LocalLeader>vi :VimuxInspectRunner<CR>
+
+" Close vim tmux runner opened by VimuxRunCommand
+map <LocalLeader>vq :VimuxCloseRunner<CR>
+
+" Interrupt any command running in the runner pane
+map <LocalLeader>vx :VimuxInterruptRunner<CR>
 
 function! VimuxSlime()
   call VimuxSendText(@v)
