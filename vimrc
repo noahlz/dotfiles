@@ -73,6 +73,12 @@ map <LocalLeader>i :call VimuxRunCommand("irb")<CR>
 " Scala
 map <LocalLeader>sc :call VimuxRunCommand("clear; sbt console")<CR>
 map <LocalLeader>sb :call VimuxRunCommand("sbt ~test:compile")<CR>
+" workaround for https://github.com/mdreves/vim-scaladoc/issues/1
+fun! OpenScalaDoc( arg )
+  call scaladoc#Search(a:arg)
+endf
+command! -nargs=+ ScalaDoc call OpenScalaDoc('<f-args>')
+autocmd FileType scala nnoremap K :call OpenScalaDoc(expand("<cword>"))<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Various standard vim settings 
