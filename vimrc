@@ -165,6 +165,16 @@ endf
 command! NT call OpenNERDTree()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Command-T
+nnoremap <silent> <LocalLeader>t :CommandT<CR>
+nnoremap <silent> <LocalLeader>b :CommandTBuffer<CR>
+set wildignore+=.git,*.class
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BBye
+:nnoremap <LocalLeader>q :Bdelete<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto completion!
 
 " http://vim.wikia.com/wiki/VimTip1386
