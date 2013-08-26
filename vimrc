@@ -165,6 +165,19 @@ endf
 command! NT call OpenNERDTree()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Buffer Delete 
+noremap <LocalLeader>q :Bdelete<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Command-T
+noremap <LocalLeader>t :CommandT<CR>
+noremap <LocalLeader>b :CommandTBuffer<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack-Grep
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Auto completion!
 
 " http://vim.wikia.com/wiki/VimTip1386
