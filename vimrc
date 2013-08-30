@@ -7,7 +7,11 @@ set nocompatible
 call pathogen#infect() 
 
 set t_Co=256
-colo distinguished
+colo desertEx 
+
+" Make vim better and faster
+set ttymouse=xterm2
+set ttyfast
 
 " Step #1: No beeping or flashing!
 set noeb vb t_vb=
