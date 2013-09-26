@@ -1,9 +1,10 @@
+" This is standard pathogen and vim setup
+set nocompatible
+
 " Load plugins from .vim/bundles using .vim/autoload/pathogen.vim
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-" This is standard pathogen and vim setup
-set nocompatible
 call pathogen#infect() 
 
 set t_Co=256
@@ -74,15 +75,17 @@ map <LocalLeader>r :call VimuxRunCommand("clear; ruby " . bufname("%"))<CR>
 map <LocalLeader>i :call VimuxRunCommand("irb")<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Scala
-map <LocalLeader>sc :call VimuxRunCommand("clear; sbt console")<CR>
-map <LocalLeader>sb :call VimuxRunCommand("sbt ~test:compile")<CR>
+" Scala Console
+map <LocalLeader>sc :call VimuxRunCommand("clear; sc")<CR>
+
 " workaround for https://github.com/mdreves/vim-scaladoc/issues/1
 fun! OpenScalaDoc( arg )
   call scaladoc#Search(a:arg)
 endf
 command! -nargs=+ ScalaDoc call OpenScalaDoc('<f-args>')
 autocmd FileType scala nnoremap K :call OpenScalaDoc(expand("<cword>"))<CR>
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Various standard vim settings 
@@ -94,9 +97,12 @@ set hidden
 set number
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase
 
 " Popup suggestions for the command buffer.
 set wildmenu
+set wildignore=*.swp,*.class,.git,*.pyc
 
 " Enable autoindent, cindent
 " http://blogs.gnome.org/johannes/2006/11/10/getting-cool-auto-indent-in-vim/
@@ -203,4 +209,9 @@ inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
 inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Import local .vimrc
+source $HOME/.local.vimrc
 
