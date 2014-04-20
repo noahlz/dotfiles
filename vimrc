@@ -102,7 +102,7 @@ set smartcase
 
 " Popup suggestions for the command buffer.
 set wildmenu
-set wildignore=*.swp,*.class,.git,*.pyc
+set wildignore=*.swp,*.class,.git,*.pyc,target/*
 
 " Enable autoindent, cindent
 " http://blogs.gnome.org/johannes/2006/11/10/getting-cool-auto-indent-in-vim/
@@ -132,12 +132,18 @@ nnoremap gb :ls<CR>:b<Space>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
-" tmux copy/paste integration (I think)
-if $TMUX == ''
-  set clipboard^=unnamed
+" make arrow keys work in tmux console vim 
+" http://stackoverflow.com/questions/8813855/in-vim-how-can-i-make-esc-and-arrow-keys-work-in-insert-mode 
+if has("gui_running") 
+ " do nothing
+else 
+  set esckeys
+  set ttimeoutlen=10
+  inoremap A <Up>
+  inoremap B <Down>
+  inoremap C <Right>
+  inoremap D <Left>
 endif
-" tmux copies into the * buffer
-inoremap <C-V> <ESC>"*P<ESC>i
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -166,8 +172,8 @@ vmap <LocalLeader>vs "vy :call VimuxSlime()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree 
 " Start NERDTree but put focus on main window
-autocmd VimEnter * NERDTree | wincmd p
-autocmd VimEnter * vertical resize +10
+" autocmd VimEnter * NERDTree | wincmd p
+" autocmd VimEnter * vertical resize +10
 " :NT opens NerdTree 
 fun! OpenNERDTree()
   execute ":NERDTree"
