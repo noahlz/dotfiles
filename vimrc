@@ -25,7 +25,7 @@ imap <F1> <Esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Saved macros - http://stackoverflow.com/questions/2024443/saving-vim-macros
-let @c='bgUelguew' " Capitalize first leter and jump to next word.
+let @c='"+y' " Capitalize first leter and jump to next word.
 let @v='"+gp'      " or maybe one day map Ctrl-Shift-P if possible?
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -58,7 +58,7 @@ filetype plugin indent on
 syntax on
 
 " http://stackoverflow.com/questions/158968/changing-vim-indentation-behavior-by-file-type
-autocmd FileType           html,xml,clj,ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType           html,xml,clj,ruby,js,py setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType           scala,sc          setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType           c,h,java          setlocal expandtab
 autocmd FileType           make,txt          setlocal noexpandtab
@@ -74,9 +74,17 @@ autocmd FileType	ruby	let b:vimpipe_command="ruby"
 map <LocalLeader>r :call VimuxRunCommand("clear; ruby " . bufname("%"))<CR>
 map <LocalLeader>i :call VimuxRunCommand("irb")<CR>
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" python
+autocmd FileType	python	setlocal makeprg=python\ %
+autocmd FileType	python	let b:vimpipe_command="python"
+map <LocalLeader>r :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
+map <LocalLeader>i :call VimuxRunCommand("python")<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Scala Console
-map <LocalLeader>sc :call VimuxRunCommand("clear; sc")<CR>
+map <LocalLeader>sc :call VimuxRunCommand("clear; scala")<CR>
 
 " workaround for https://github.com/mdreves/vim-scaladoc/issues/1
 fun! OpenScalaDoc( arg )
@@ -86,6 +94,9 @@ command! -nargs=+ ScalaDoc call OpenScalaDoc('<f-args>')
 autocmd FileType scala nnoremap K :call OpenScalaDoc(expand("<cword>"))<CR>
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Node Console
+map <LocalLeader>no :call VimuxRunCommand("clear; node")<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Various standard vim settings 
@@ -130,6 +141,10 @@ map <C-l> <C-w>l
 " quickly navigate buffers #protip
 nnoremap gb :ls<CR>:b<Space>
 
+" ctags
+set tags=tags;/
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
 " tmux copy/paste integration (I think)
@@ -166,8 +181,8 @@ vmap <LocalLeader>vs "vy :call VimuxSlime()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree 
 " Start NERDTree but put focus on main window
-autocmd VimEnter * NERDTree | wincmd p
-autocmd VimEnter * vertical resize +10
+" autocmd VimEnter * NERDTree | wincmd p
+" autocmd VimEnter * vertical resize +10
 " :NT opens NerdTree 
 fun! OpenNERDTree()
   execute ":NERDTree"
