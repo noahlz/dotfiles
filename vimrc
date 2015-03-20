@@ -50,7 +50,7 @@ endif
 set shiftwidth=4 
 set tabstop=4 
 set softtabstop=4
-set noexpandtab
+set expandtab
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FileTypes and language-specific features 
@@ -66,6 +66,12 @@ autocmd BufRead,BufNewFile *.md              setlocal expandtab sw=2 ts=2 sts=2
 
 " turn off autocomment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clojure / TMUX
+" https://github.com/dgrnbrg/vim-redl/issues/24#issuecomment-50822711
+imap <silent> <C-S-K> <Plug>clj_repl_uphist.
+imap <silent> <C-S-J> <Plug>clj_repl_downhist.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby
