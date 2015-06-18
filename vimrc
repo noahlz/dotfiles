@@ -5,10 +5,10 @@ set nocompatible
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-call pathogen#infect() 
+call pathogen#infect()
 
 set t_Co=256
-colo desertEx 
+colo desertEx
 
 " Make vim better and faster
 set ttymouse=xterm2
@@ -21,7 +21,7 @@ set noeb vb t_vb=
 let maplocalleader = ","
 
 " Step #3: Disable annoying help
-imap <F1> <Esc> 
+imap <F1> <Esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Saved macros - http://stackoverflow.com/questions/2024443/saving-vim-macros
@@ -31,29 +31,29 @@ let @v='"+gp'      " or maybe one day map Ctrl-Shift-P if possible?
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Other GUI-vs-console-specific customizations
 
-if has("gui_running") 
+if has("gui_running")
   inoremap <C-Space> <C-P>
 else
   inoremap <Nul> <C-P>
- 
-  " also, make the cursor to bar when in insert mode  
+
+  " also, make the cursor to bar when in insert mode
   if has("autocmd")
     au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
     au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-    au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block" 
-  endif 
+    au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+  endif
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tabs and Spaces 
+" Tabs and Spaces
 " http://vimcasts.org/episodes/tabs-and-spaces/
-set shiftwidth=4 
-set tabstop=4 
+set shiftwidth=4
+set tabstop=4
 set softtabstop=4
 set expandtab
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" FileTypes and language-specific features 
+" FileTypes and language-specific features
 filetype plugin indent on
 syntax on
 
@@ -68,6 +68,10 @@ autocmd BufRead,BufNewFile *.md              setlocal expandtab sw=2 ts=2 sts=2
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-dispatch
+nnoremap <F8> :Dispatch<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clojure / TMUX
 " https://github.com/dgrnbrg/vim-redl/issues/24#issuecomment-50822711
 imap <silent> <C-S-K> <Plug>clj_repl_uphist.
@@ -80,6 +84,12 @@ autocmd FileType	ruby	let b:vimpipe_command="ruby"
 map <LocalLeader>r :call VimuxRunCommand("clear; ruby " . bufname("%"))<CR>
 map <LocalLeader>i :call VimuxRunCommand("irb")<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CoffeeTags
+" let g:CoffeeAutoTagDisabled=<0 or 1>     " Disables autotaging on save (Default: 0 [false])
+" let g:CoffeeAutoTagFile=tags       " Name of the generated tag file (Default: ./tags)
+" let g:CoffeeAutoTagIncludeVars=<0 or 1>  " Includes variables (Default: 0 [false])
+" let g:CoffeeAutoTagTagRelative=<0 or 1>  " Sets file names to the relative path from the tag file location to the tag file location (Default: 1 [true])
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " python
@@ -98,6 +108,7 @@ fun! OpenScalaDoc( arg )
 endf
 command! -nargs=+ ScalaDoc call OpenScalaDoc('<f-args>')
 autocmd FileType scala nnoremap K :call OpenScalaDoc(expand("<cword>"))<CR>
+autocmd FileType scala let b:dispatch = 'sbt test'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -105,7 +116,7 @@ autocmd FileType scala nnoremap K :call OpenScalaDoc(expand("<cword>"))<CR>
 map <LocalLeader>no :call VimuxRunCommand("clear; node")<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Various standard vim settings 
+" Various standard vim settings
 
 " Make the mouse work
 set mouse=a
@@ -127,7 +138,7 @@ set cindent
 set smartindent
 set autoindent
 
-" http://vim.wikia.com/wiki/Word_wrap_without_line_breaks 
+" http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
 set wrap
 set linebreak
 set nolist  " list disables linebreak
@@ -149,15 +160,18 @@ nnoremap gb :ls<CR>:b<Space>
 
 " ctags
 set tags=tags;/
+" no binary search for tags :(
+set notbs
 
+" nmap <F9> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
-" make arrow keys work in tmux console vim 
-" http://stackoverflow.com/questions/8813855/in-vim-how-can-i-make-esc-and-arrow-keys-work-in-insert-mode 
-if has("gui_running") 
+" make arrow keys work in tmux console vim
+" http://stackoverflow.com/questions/8813855/in-vim-how-can-i-make-esc-and-arrow-keys-work-in-insert-mode
+if has("gui_running")
  " do nothing
-else 
+else
   set esckeys
   set ttimeoutlen=10
   inoremap A <Up>
@@ -168,7 +182,7 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vimux 
+" Vimux
 " Prompt for a command to run map
 map <LocalLeader>vp :VimuxPromptCommand<CR>
 
@@ -185,24 +199,24 @@ function! VimuxSlime()
   call VimuxSendText(@v)
   call VimuxSendKeys("Enter")
 endfunction
-  
+
 " If text is selected, save it in the v buffer and send that buffer it to tmux
 vmap <LocalLeader>vs "vy :call VimuxSlime()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTree 
+" NERDTree
 " Start NERDTree but put focus on main window
 " autocmd VimEnter * NERDTree | wincmd p
 " autocmd VimEnter * vertical resize +10
-" :NT opens NerdTree 
+" :NT opens NerdTree
 fun! OpenNERDTree()
   execute ":NERDTree"
 endf
 command! NT call OpenNERDTree()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Buffer Delete 
+" Buffer Delete
 noremap <LocalLeader>q :Bdelete<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -222,8 +236,8 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 set completeopt+=longest,menuone
 
 " Customizing ins-completion / omni completion
-" http://vim.wikia.com/wiki/Omni_completion 
-" http://vim.wikia.com/wiki/Omni_completion_popup_menu 
+" http://vim.wikia.com/wiki/Omni_completion
+" http://vim.wikia.com/wiki/Omni_completion_popup_menu
 " http://vim.wikia.com/wiki/Improve_completion_popup_menu
 set omnifunc=syntaxcomplete#Complete
 
