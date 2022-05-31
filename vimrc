@@ -10,6 +10,9 @@ call pathogen#infect()
 set t_Co=256
 colo desertEx
 
+" http://askubuntu.com/questions/125526/vim-in-tmux-display-wrong-colors
+set term=screen-256color
+
 " Make vim better and faster
 set ttymouse=xterm2
 set ttyfast
@@ -62,6 +65,7 @@ autocmd FileType           html,xml,clj,ruby,js,py setlocal expandtab shiftwidth
 autocmd FileType           scala,sc          setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType           c,h,java          setlocal expandtab
 autocmd FileType           make,txt          setlocal noexpandtab
+autocmd FileType           jade              setlocal noexpandtab
 autocmd BufRead,BufNewFile *.md              setlocal expandtab sw=2 ts=2 sts=2
 
 " turn off autocomment
@@ -130,7 +134,7 @@ set smartcase
 
 " Popup suggestions for the command buffer.
 set wildmenu
-set wildignore=*.swp,*.class,.git,*.pyc,target/*
+set wildignore=*.swp,*.class,.git,*.pyc,*/target/*,*/node_modules/*
 
 " Enable autoindent, cindent
 " http://blogs.gnome.org/johannes/2006/11/10/getting-cool-auto-indent-in-vim/
@@ -139,7 +143,7 @@ set smartindent
 set autoindent
 
 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
-set wrap
+set nowrap
 set linebreak
 set nolist  " list disables linebreak
 set textwidth=0
@@ -164,6 +168,11 @@ set tags=tags;/
 set notbs
 
 " nmap <F9> :TagbarToggle<CR>
+
+" http://www.vimbits.com/bits/145
+" Ctrl-L recolors the screen when it gets confused.
+" noremap <c-a> <c-a>:syntax sync fromstart<CR>
+" noremap <c-a> <esc><c-a>:syntax sync fromstart<CR>a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TMUX
